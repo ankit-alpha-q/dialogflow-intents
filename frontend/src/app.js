@@ -8,7 +8,11 @@ export default function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001")
+      .get(
+        window.location.host.includes("localhost")
+          ? "http://localhost:3001"
+          : "https://dialogflow-intent-demo.herokuapp.com/"
+      )
       .then((res) => {
         updateMessage("success");
         updateList(res.data);
@@ -23,7 +27,9 @@ export default function App() {
       <h1>Hello World</h1>
       <div>{message}</div>
       {list.map((intent, index) => (
-        <div className='intent' key={index}>{intent.displayName}</div>
+        <div className="intent" key={index}>
+          {intent.displayName}
+        </div>
       ))}
     </div>
   );
